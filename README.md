@@ -1,36 +1,153 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hedine Jewelry Website
 
-## Getting Started
+A beautiful, responsive jewelry e-commerce website built with Next.js, TypeScript, and Tailwind CSS. This project was created based on a Figma design and features a modern, elegant interface showcasing exquisite jewelry collections.
 
-First, run the development server:
+## 🌟 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Responsive Design**: Optimized for all devices (mobile, tablet, desktop)
+- **Modern UI/UX**: Clean, elegant design with smooth animations
+- **Product Showcase**: Beautiful product cards with ratings and pricing
+- **Interactive Elements**: Hover effects, smooth transitions, and animations
+- **Jewelry-Focused**: Specialized design for jewelry e-commerce
+- **Performance Optimized**: Built with Next.js for optimal performance
+
+## 🚀 Technologies Used
+
+- **Next.js 14** - React framework with App Router
+- **TypeScript** - Type-safe development
+- **Tailwind CSS** - Utility-first CSS framework
+- **React** - UI library
+- **ESLint** - Code linting
+
+## 📦 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd hedine-site
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Run the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 🎨 Design Features
+
+### Components
+
+- **Header**: Navigation with mobile-responsive menu
+- **Hero**: Eye-catching hero section with jewelry showcase
+- **Features**: Why choose Hedine section with key benefits
+- **ProductGrid**: Responsive grid of jewelry products
+- **ProductCard**: Individual product cards with ratings and pricing
+- **Footer**: Comprehensive footer with links and newsletter signup
+
+### Styling
+
+- **Custom CSS**: Jewelry-specific animations and effects
+- **Gradient Backgrounds**: Beautiful gradients for product showcases
+- **Hover Effects**: Smooth transitions and hover states
+- **Responsive Grid**: Adaptive layouts for all screen sizes
+
+## 🛍️ Product Features
+
+- Star ratings (1-5 stars with half-star support)
+- Sale badges and discount percentages
+- Original and sale pricing
+- Responsive product grid (1-4 columns based on screen size)
+- Hover animations and effects
+
+## 📱 Responsive Breakpoints
+
+- **Mobile**: < 640px (1 column)
+- **Tablet**: 640px - 1024px (2-3 columns)
+- **Desktop**: > 1024px (3-4 columns)
+
+## 🎯 Key Sections
+
+1. **Navigation**: Clean header with logo and menu
+2. **Hero**: Compelling hero section with call-to-action
+3. **Features**: Trust-building elements (warranty, shipping, etc.)
+4. **Products**: Featured jewelry collection
+5. **Footer**: Contact info, links, and newsletter
+
+## 🔧 Customization
+
+### Adding New Products
+
+Edit the `products` array in `src/components/ProductGrid.tsx`:
+
+```typescript
+const products = [
+  {
+    id: 1,
+    name: "PRODUCT NAME",
+    price: 299,
+    originalPrice: 399, // Optional
+    discount: 25, // Optional
+    rating: 4.5,
+    image: "/product-image.jpg",
+    isOnSale: true, // Optional
+  },
+  // ... more products
+];
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Styling Customization
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Global styles: `src/app/globals.css`
+- Component styles: Tailwind classes in component files
+- Custom animations: Defined in globals.css
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Deployment
 
-## Learn More
+### Vercel (Recommended)
 
-To learn more about Next.js, take a look at the following resources:
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Deploy automatically
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Other Platforms
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run build
+npm start
+```
 
-## Deploy on Vercel
+## 📄 License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is created for demonstration purposes. Feel free to use and modify as needed.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## 📞 Support
+
+For questions or support, please reach out through the contact form on the website.
+
+---
+
+**Built with ❤️ for Hedine Jewelry**

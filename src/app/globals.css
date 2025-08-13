@@ -19,8 +19,457 @@
   }
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Mr Eaves Mod OT Regular font for paragraph copy text */
+.font-mr-eaves {
+  font-family: "mr-eaves-mod-ot", serif !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Smooth transitions */
+* {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.animate-slideIn {
+  animation: slideIn 0.6s ease-out;
+}
+
+/* Jewelry-specific styling */
+.jewelry-gradient {
+  background: linear-gradient(135deg, #f6d55c, #ed4264, #3f51b5);
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, #ffd700, #ffb347);
+}
+
+.silver-gradient {
+  background: linear-gradient(135deg, #c0c0c0, #e6e6fa);
+}
+
+.diamond-sparkle {
+  position: relative;
+  overflow: hidden;
+}
+
+.diamond-sparkle::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 70%
+  );
+  transform: rotate(45deg);
+  animation: sparkle 3s infinite;
+}
+
+@keyframes sparkle {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+/* Product card hover effects */
+.product-card {
+  transition: all 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05);
+}
+
+.product-image {
+  transition: transform 0.3s ease;
+}
+
+/* Button styles */
+.btn-primary {
+  @apply bg-yellow-400 text-black px-6 py-3 rounded-lg font-semibold hover:bg-yellow-500 transition-all duration-200 hover:shadow-lg;
+}
+
+.btn-secondary {
+  @apply border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-all duration-200;
+}
+
+/* Ornamental Button Styles */
+.ornamental-button {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.9em;
+  position: relative;
+  text-decoration: none;
+  padding: 0.3em;
+  box-shadow: inset 0 0 0 1px #E3AE67;
+  min-width: 180px;
+  text-align: center;
+  background-color: transparent;
+  font-weight: 800 !important;
+  font-style: normal !important;
+  color: #0a125a;
+  transition: all 500ms ease;
+}
+
+@media (min-width: 640px) {
+  .ornamental-button {
+    font-size: 1em;
+    min-width: 210px;
+  }
+}
+
+.tk-mr-eaves-sans {
+  font-family: "mr-eaves-sans", sans-serif !important;
+}
+
+.ornamental-button:hover .ornamental-button__label {
+  color: #000;
+  background-color: rgba(227, 174, 103, 0.9);
+}
+
+.ornamental-button__label {
+  display: block;
+  background-color: transparent;
+  color: #0a125a;
+  padding: 1em 1em;
+  transition: color 500ms ease, background-color 500ms ease;
+  font-family: "mr-eaves-sans", sans-serif !important;
+  font-weight: 800 !important;
+  font-style: normal !important;
+}
+
+.ornamental-button__ornament {
+  position: absolute;
+  pointer-events: none;
+}
+
+.ornamental-button__ornament--vertical {
+  top: -0.5em;
+  bottom: -0.5em;
+  left: 0;
+  right: 0;
+}
+
+.ornamental-button__ornament--horizontal {
+  left: -0.5em;
+  right: -0.5em;
+  top: 0;
+  bottom: 0;
+}
+
+.ornamental-button__ornament-top-bottom,
+.ornamental-button__ornament-left-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.ornamental-button__ornament-top-bottom::before,
+.ornamental-button__ornament-top-bottom::after,
+.ornamental-button__ornament-left-right::before,
+.ornamental-button__ornament-left-right::after {
+  content: '';
+  position: absolute;
+  background-color: #E3AE67;
+  transition: transform 400ms cubic-bezier(.54,.06,.39,.96);
+}
+
+/* Horizontal ornament uses brown color */
+.ornamental-button__ornament--horizontal .ornamental-button__ornament-top-bottom::before,
+.ornamental-button__ornament--horizontal .ornamental-button__ornament-top-bottom::after,
+.ornamental-button__ornament--horizontal .ornamental-button__ornament-left-right::before,
+.ornamental-button__ornament--horizontal .ornamental-button__ornament-left-right::after {
+  background-color: #9F5000;
+}
+
+.ornamental-button__ornament-top-bottom::before,
+.ornamental-button__ornament-top-bottom::after {
+  height: 1px;
+  left: 0;
+  right: 0;
+}
+
+.ornamental-button__ornament-top-bottom::before {
+  top: 0;
+}
+
+.ornamental-button__ornament-top-bottom::after {
+  bottom: 0;
+}
+
+.ornamental-button__ornament-left-right::before,
+.ornamental-button__ornament-left-right::after {
+  width: 1px;
+  top: 0;
+  bottom: 0;
+}
+
+.ornamental-button__ornament-left-right::before {
+  left: 0;
+}
+
+.ornamental-button__ornament-left-right::after {
+  right: 0;
+}
+
+.ornamental-button:hover .ornamental-button__ornament--vertical .ornamental-button__ornament-left-right::before,
+.ornamental-button:hover .ornamental-button__ornament--vertical .ornamental-button__ornament-left-right::after {
+  transform: scale(1, 0);
+}
+
+.ornamental-button:hover .ornamental-button__ornament--vertical .ornamental-button__ornament-top-bottom::before,
+.ornamental-button:hover .ornamental-button__ornament--vertical .ornamental-button__ornament-top-bottom::after {
+  transform: scale(0, 1);
+}
+
+.ornamental-button:hover .ornamental-button__ornament--horizontal .ornamental-button__ornament-left-right::before,
+.ornamental-button:hover .ornamental-button__ornament--horizontal .ornamental-button__ornament-left-right::after {
+  transform: scale(1, 0);
+}
+
+.ornamental-button:hover .ornamental-button__ornament--horizontal .ornamental-button__ornament-top-bottom::before,
+.ornamental-button:hover .ornamental-button__ornament--horizontal .ornamental-button__ornament-top-bottom::after {
+  transform: scale(0, 1);
+}
+
+/* Dark Ornamental Button Variation */
+.ornamental-button--dark {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.9em;
+  position: relative;
+  text-decoration: none;
+  padding: 0.3em;
+  box-shadow: inset 0 0 0 1px #E3AE67;
+  min-width: 180px;
+  text-align: center;
+  background-color: #0A125A;
+  font-weight: 800 !important;
+  font-style: normal !important;
+  color: white;
+  transition: all 500ms ease;
+}
+
+@media (min-width: 640px) {
+  .ornamental-button--dark {
+    font-size: 1em;
+    min-width: 210px;
+  }
+}
+
+.tk-mr-eaves-sans.ornamental-button--dark {
+  font-family: "mr-eaves-sans", sans-serif !important;
+}
+
+.ornamental-button--dark:hover .ornamental-button__label--dark {
+  color: white;
+  background-color: rgba(118, 166, 255, 0.24);
+}
+
+.ornamental-button__label--dark {
+  display: block;
+  background-color: transparent;
+  color: white;
+  padding: 1em 1em;
+  transition: color 500ms ease, background-color 500ms ease;
+  font-family: "mr-eaves-sans", sans-serif !important;
+  font-weight: 800 !important;
+  font-style: normal !important;
+}
+
+.ornamental-button--dark .ornamental-button__ornament {
+  position: absolute;
+  pointer-events: none;
+}
+
+.ornamental-button--dark .ornamental-button__ornament--vertical {
+  top: -0.5em;
+  bottom: -0.5em;
+  left: 0;
+  right: 0;
+}
+
+.ornamental-button--dark .ornamental-button__ornament--horizontal {
+  left: -0.5em;
+  right: -0.5em;
+  top: 0;
+  bottom: 0;
+}
+
+.ornamental-button--dark .ornamental-button__ornament-top-bottom,
+.ornamental-button--dark .ornamental-button__ornament-left-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.ornamental-button--dark .ornamental-button__ornament-top-bottom::before,
+.ornamental-button--dark .ornamental-button__ornament-top-bottom::after,
+.ornamental-button--dark .ornamental-button__ornament-left-right::before,
+.ornamental-button--dark .ornamental-button__ornament-left-right::after {
+  content: '';
+  position: absolute;
+  background-color: #E3AE67;
+  transition: transform 400ms cubic-bezier(.54,.06,.39,.96);
+}
+
+/* Horizontal ornament uses brown color */
+.ornamental-button--dark .ornamental-button__ornament--horizontal .ornamental-button__ornament-top-bottom::before,
+.ornamental-button--dark .ornamental-button__ornament--horizontal .ornamental-button__ornament-top-bottom::after,
+.ornamental-button--dark .ornamental-button__ornament--horizontal .ornamental-button__ornament-left-right::before,
+.ornamental-button--dark .ornamental-button__ornament--horizontal .ornamental-button__ornament-left-right::after {
+  background-color: #9F5000;
+}
+
+.ornamental-button--dark .ornamental-button__ornament-top-bottom::before,
+.ornamental-button--dark .ornamental-button__ornament-top-bottom::after {
+  height: 1px;
+  left: 0;
+  right: 0;
+}
+
+.ornamental-button--dark .ornamental-button__ornament-top-bottom::before {
+  top: 0;
+}
+
+.ornamental-button--dark .ornamental-button__ornament-top-bottom::after {
+  bottom: 0;
+}
+
+.ornamental-button--dark .ornamental-button__ornament-left-right::before,
+.ornamental-button--dark .ornamental-button__ornament-left-right::after {
+  width: 1px;
+  top: 0;
+  bottom: 0;
+}
+
+.ornamental-button--dark .ornamental-button__ornament-left-right::before {
+  left: 0;
+}
+
+.ornamental-button--dark .ornamental-button__ornament-left-right::after {
+  right: 0;
+}
+
+.ornamental-button--dark:hover .ornamental-button__ornament--vertical .ornamental-button__ornament-left-right::before,
+.ornamental-button--dark:hover .ornamental-button__ornament--vertical .ornamental-button__ornament-left-right::after {
+  transform: scale(1, 0);
+}
+
+.ornamental-button--dark:hover .ornamental-button__ornament--vertical .ornamental-button__ornament-top-bottom::before,
+.ornamental-button--dark:hover .ornamental-button__ornament--vertical .ornamental-button__ornament-top-bottom::after {
+  transform: scale(0, 1);
+}
+
+.ornamental-button--dark:hover .ornamental-button__ornament--horizontal .ornamental-button__ornament-left-right::before,
+.ornamental-button--dark:hover .ornamental-button__ornament--horizontal .ornamental-button__ornament-left-right::after {
+  transform: scale(1, 0);
+}
+
+.ornamental-button--dark:hover .ornamental-button__ornament--horizontal .ornamental-button__ornament-top-bottom::before,
+.ornamental-button--dark:hover .ornamental-button__ornament--horizontal .ornamental-button__ornament-top-bottom::after {
+  transform: scale(0, 1);
+}
+
+/* Custom Shape with specific border radius */
+.custom-shape {
+  /* size & layout */
+  width: 100%;
+  height: 16rem; /* h-64 */
+}
+
+@media (min-width: 640px) {
+  .custom-shape { height: 20rem; } /* sm:h-80 */
+}
+
+@media (min-width: 1024px) {
+  .custom-shape { height: 24rem; } /* lg:h-96 */
+}
+
+.custom-shape {
+  background: #FAF7F0; /* cream color matching first section */
+  overflow: hidden; /* ensure corners clip */
+  border-top-left-radius: 12rem;   /* big visual radius */
+  border-bottom-right-radius: 12rem;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0;
+  /* Gold offset stroke */
+  box-shadow: 
+    0 0 0 8px #FFFFFF,           /* White gap between shape and gold stroke */
+    0 0 0 9px #E3AE67,           /* Gold stroke (1px thick) */
+    0 4px 12px rgba(227, 174, 103, 0.3); /* Subtle gold glow */
+  position: relative;
 }
