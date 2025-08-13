@@ -9,18 +9,20 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isShopDropdownOpen, setIsShopDropdownOpen] = useState(false);
+  const [isMobileShopDropdownOpen, setIsMobileShopDropdownOpen] = useState(false);
   const { scrollY } = useScroll();
   
   // Transform values for smooth logo animation
-  // const logoScale = useTransform(scrollY, [0, 50], [1, 0.375]); // 150/400 = 0.375
-  // const logoX = useTransform(scrollY, [0, 50], [0, -450]); // Move further left to reach sticky position
-  // const logoY = useTransform(scrollY, [0, 50], [0, -30]); // Move up slightly
+  const logoScale = useTransform(scrollY, [0, 50], [1, 0.375]); // 150/400 = 0.375
+  const logoX = useTransform(scrollY, [0, 50], [0, -450]); // Move further left to reach sticky position
+  const logoY = useTransform(scrollY, [0, 50], [0, -30]); // Move up slightly
   
   // Container height animation to make nav drawer shrink upward
   // Use different initial heights for mobile vs desktop, and expand when mobile menu is open
   const initialHeight = isMobile ? 120 : 200;
   const scrolledHeight = 60;
-  const expandedHeight = 600; // Much larger dropdown
+  const expandedHeight = isMobileShopDropdownOpen && isMobile ? 1000 : 600; // Much larger when dropdown is open
   
   // Dynamic height based on scroll and mobile menu state
   // const getContainerHeight = () => {
@@ -54,6 +56,38 @@ const Header = () => {
     };
   }, []);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (!target.closest('.shop-dropdown-container')) {
+        setIsShopDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Close mobile dropdown when mobile menu closes
+  useEffect(() => {
+    if (!isMenuOpen) {
+      setIsMobileShopDropdownOpen(false);
+    }
+  }, [isMenuOpen]);
+
+  const shopCategories = [
+    { name: 'Rings', href: '/shop/rings' },
+    { name: 'Necklaces', href: '/shop/necklaces' },
+    { name: 'Bracelets', href: '/shop/bracelets' },
+    { name: 'Earrings', href: '/shop/earrings' },
+    { name: 'Watches', href: '/shop/watches' },
+    { name: 'Diamonds', href: '/shop/diamonds' },
+    { name: 'Gemstones', href: '/shop/gemstones' },
+  ];
+
   return (
     <header className={`fixed w-full z-50 transition-all duration-500 ${
       isScrolled 
@@ -73,22 +107,24 @@ const Header = () => {
         {/* Single Logo - always present, transforms position and scale */}
         <motion.div 
           className="flex justify-center"
-          animate={{ 
-            scale: isMenuOpen && isMobile ? 1 : (isScrolled ? 0.375 : 1),
-            x: isMenuOpen && isMobile ? 0 : (isScrolled ? -450 : 0),
-            y: isMenuOpen && isMobile ? 0 : (isScrolled ? -30 : 0),
-            opacity: 1
+          style={{ 
+            scale: isMenuOpen && isMobile ? 1 : logoScale,
+            x: isMenuOpen && isMobile ? 0 : logoX,
+            y: isMenuOpen && isMobile ? 0 : logoY,
+            transformOrigin: 'center center'
           }}
           initial={{ 
             y: isMenuOpen && isMobile ? -50 : 0,
             opacity: isMenuOpen && isMobile ? 0 : 1
           }}
+          animate={{ 
+            opacity: 1
+          }}
           transition={{ 
-            duration: 0.5, 
-            ease: [0.16, 1, 0.3, 1], // Smooth easing curve
+            duration: 0.3, 
+            ease: "easeOut",
             delay: isMenuOpen && isMobile ? 0.15 : 0
           }}
-          style={{ transformOrigin: 'center center' }}
         >
           <Link href="/" className="block">
             <Image
@@ -124,24 +160,77 @@ const Header = () => {
                   backgroundColor: 'transparent',
                   pointerEvents: 'none'
                 }}></div>
-                <Link href="/" className="px-4 py-2 text-white transition-colors text-lg" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }} onMouseEnter={(e) => { e.currentTarget.style.color = '#E3AE67'; e.currentTarget.style.fontWeight = '700'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'white'; e.currentTarget.style.fontWeight = '500'; }}>
-                  Home
+                <Link href="/about" className="px-4 py-2 text-white transition-colors text-lg" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }} onMouseEnter={(e) => { e.currentTarget.style.color = '#E3AE67'; e.currentTarget.style.fontWeight = '700'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'white'; e.currentTarget.style.fontWeight = '500'; }}>
+                  About Us
                 </Link>
                 <span className="text-white text-opacity-30 mx-2">|</span>
-                <Link href="/rings" className="px-4 py-2 text-white transition-colors text-lg" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }} onMouseEnter={(e) => { e.currentTarget.style.color = '#E3AE67'; e.currentTarget.style.fontWeight = '700'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'white'; e.currentTarget.style.fontWeight = '500'; }}>
-                  Rings
+                <Link href="/buy-sell" className="px-4 py-2 text-white transition-colors text-lg" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }} onMouseEnter={(e) => { e.currentTarget.style.color = '#E3AE67'; e.currentTarget.style.fontWeight = '700'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'white'; e.currentTarget.style.fontWeight = '500'; }}>
+                  Buy & Sell
                 </Link>
                 <span className="text-white text-opacity-30 mx-2">|</span>
-                <Link href="/necklaces" className="px-4 py-2 text-white transition-colors text-lg" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }} onMouseEnter={(e) => { e.currentTarget.style.color = '#E3AE67'; e.currentTarget.style.fontWeight = '700'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'white'; e.currentTarget.style.fontWeight = '500'; }}>
-                  Necklaces
+                
+                {/* Shop Dropdown */}
+                <div className="shop-dropdown-container relative">
+                  <button
+                    className="px-4 py-2 text-white transition-colors text-lg flex items-center"
+                    style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }}
+                    onMouseEnter={(e) => { 
+                      e.currentTarget.style.color = '#E3AE67'; 
+                      e.currentTarget.style.fontWeight = '700';
+                      setIsShopDropdownOpen(true);
+                    }}
+                    onMouseLeave={(e) => { 
+                      e.currentTarget.style.color = 'white'; 
+                      e.currentTarget.style.fontWeight = '500';
+                    }}
+                    onClick={() => setIsShopDropdownOpen(!isShopDropdownOpen)}
+                  >
+                    Shop
+                    <svg 
+                      className={`ml-1 w-4 h-4 transition-transform duration-200 ${isShopDropdownOpen ? 'rotate-180' : ''}`}
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  
+                  {/* Dropdown Menu */}
+                  <AnimatePresence>
+                    {isShopDropdownOpen && (
+                      <motion.div
+                        className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50"
+                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        onMouseEnter={() => setIsShopDropdownOpen(true)}
+                        onMouseLeave={() => setIsShopDropdownOpen(false)}
+                      >
+                        {shopCategories.map((category, index) => (
+                          <Link
+                            key={category.name}
+                            href={category.href}
+                            className="block px-4 py-2 text-gray-800 hover:bg-yellow-50 hover:text-yellow-700 transition-colors text-sm"
+                            style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }}
+                            onClick={() => setIsShopDropdownOpen(false)}
+                          >
+                            {category.name}
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+                
+                <span className="text-white text-opacity-30 mx-2">|</span>
+                <Link href="/repair" className="px-4 py-2 text-white transition-colors text-lg" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }} onMouseEnter={(e) => { e.currentTarget.style.color = '#E3AE67'; e.currentTarget.style.fontWeight = '700'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'white'; e.currentTarget.style.fontWeight = '500'; }}>
+                  Repair
                 </Link>
                 <span className="text-white text-opacity-30 mx-2">|</span>
-                <Link href="/bracelets" className="px-4 py-2 text-white transition-colors text-lg" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }} onMouseEnter={(e) => { e.currentTarget.style.color = '#E3AE67'; e.currentTarget.style.fontWeight = '700'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'white'; e.currentTarget.style.fontWeight = '500'; }}>
-                  Bracelets
-                </Link>
-                <span className="text-white text-opacity-30 mx-2">|</span>
-                <Link href="/earrings" className="px-4 py-2 text-white transition-colors text-lg" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }} onMouseEnter={(e) => { e.currentTarget.style.color = '#E3AE67'; e.currentTarget.style.fontWeight = '700'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'white'; e.currentTarget.style.fontWeight = '500'; }}>
-                  Earrings
+                <Link href="/custom" className="px-4 py-2 text-white transition-colors text-lg" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }} onMouseEnter={(e) => { e.currentTarget.style.color = '#E3AE67'; e.currentTarget.style.fontWeight = '700'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'white'; e.currentTarget.style.fontWeight = '500'; }}>
+                  Custom
                 </Link>
                 <span className="text-white text-opacity-30 mx-2">|</span>
                 <Link href="/contact" className="px-4 py-2 text-white transition-colors text-lg" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }} onMouseEnter={(e) => { e.currentTarget.style.color = '#E3AE67'; e.currentTarget.style.fontWeight = '700'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'white'; e.currentTarget.style.fontWeight = '500'; }}>
@@ -159,24 +248,77 @@ const Header = () => {
               <div className="flex items-center space-x-6">
                 {/* Desktop Navigation - Scrolled State (Simple) */}
                 <nav className="hidden md:flex items-center space-x-1">
-                  <Link href="/" className="px-3 py-2 text-white transition-colors text-lg" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }} onMouseEnter={(e) => { e.currentTarget.style.color = '#E3AE67'; e.currentTarget.style.fontWeight = '700'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'white'; e.currentTarget.style.fontWeight = '500'; }}>
-                    Home
+                  <Link href="/about" className="px-3 py-2 text-white transition-colors text-lg" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }} onMouseEnter={(e) => { e.currentTarget.style.color = '#E3AE67'; e.currentTarget.style.fontWeight = '700'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'white'; e.currentTarget.style.fontWeight = '500'; }}>
+                    About Us
                   </Link>
                   <span className="text-white text-opacity-30">|</span>
-                  <Link href="/rings" className="px-3 py-2 text-white transition-colors text-lg" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }} onMouseEnter={(e) => { e.currentTarget.style.color = '#E3AE67'; e.currentTarget.style.fontWeight = '700'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'white'; e.currentTarget.style.fontWeight = '500'; }}>
-                    Rings
+                  <Link href="/buy-sell" className="px-3 py-2 text-white transition-colors text-lg" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }} onMouseEnter={(e) => { e.currentTarget.style.color = '#E3AE67'; e.currentTarget.style.fontWeight = '700'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'white'; e.currentTarget.style.fontWeight = '500'; }}>
+                    Buy & Sell
                   </Link>
                   <span className="text-white text-opacity-30">|</span>
-                  <Link href="/necklaces" className="px-3 py-2 text-white transition-colors text-lg" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }} onMouseEnter={(e) => { e.currentTarget.style.color = '#E3AE67'; e.currentTarget.style.fontWeight = '700'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'white'; e.currentTarget.style.fontWeight = '500'; }}>
-                    Necklaces
+                  
+                  {/* Shop Dropdown for Compact Nav */}
+                  <div className="shop-dropdown-container relative">
+                    <button
+                      className="px-3 py-2 text-white transition-colors text-lg flex items-center"
+                      style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }}
+                      onMouseEnter={(e) => { 
+                        e.currentTarget.style.color = '#E3AE67'; 
+                        e.currentTarget.style.fontWeight = '700';
+                        setIsShopDropdownOpen(true);
+                      }}
+                      onMouseLeave={(e) => { 
+                        e.currentTarget.style.color = 'white'; 
+                        e.currentTarget.style.fontWeight = '500';
+                      }}
+                      onClick={() => setIsShopDropdownOpen(!isShopDropdownOpen)}
+                    >
+                      Shop
+                      <svg 
+                        className={`ml-1 w-4 h-4 transition-transform duration-200 ${isShopDropdownOpen ? 'rotate-180' : ''}`}
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    
+                    {/* Dropdown Menu for Compact Nav */}
+                    <AnimatePresence>
+                      {isShopDropdownOpen && (
+                        <motion.div
+                          className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50"
+                          initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                          transition={{ duration: 0.2, ease: "easeOut" }}
+                          onMouseEnter={() => setIsShopDropdownOpen(true)}
+                          onMouseLeave={() => setIsShopDropdownOpen(false)}
+                        >
+                          {shopCategories.map((category, index) => (
+                            <Link
+                              key={category.name}
+                              href={category.href}
+                              className="block px-4 py-2 text-gray-800 hover:bg-yellow-50 hover:text-yellow-700 transition-colors text-sm"
+                              style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }}
+                              onClick={() => setIsShopDropdownOpen(false)}
+                            >
+                              {category.name}
+                            </Link>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                  
+                  <span className="text-white text-opacity-30">|</span>
+                  <Link href="/repair" className="px-3 py-2 text-white transition-colors text-lg" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }} onMouseEnter={(e) => { e.currentTarget.style.color = '#E3AE67'; e.currentTarget.style.fontWeight = '700'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'white'; e.currentTarget.style.fontWeight = '500'; }}>
+                    Repair
                   </Link>
                   <span className="text-white text-opacity-30">|</span>
-                  <Link href="/bracelets" className="px-3 py-2 text-white transition-colors text-lg" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }} onMouseEnter={(e) => { e.currentTarget.style.color = '#E3AE67'; e.currentTarget.style.fontWeight = '700'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'white'; e.currentTarget.style.fontWeight = '500'; }}>
-                    Bracelets
-                  </Link>
-                  <span className="text-white text-opacity-30">|</span>
-                  <Link href="/earrings" className="px-3 py-2 text-white transition-colors text-lg" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }} onMouseEnter={(e) => { e.currentTarget.style.color = '#E3AE67'; e.currentTarget.style.fontWeight = '700'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'white'; e.currentTarget.style.fontWeight = '500'; }}>
-                    Earrings
+                  <Link href="/custom" className="px-3 py-2 text-white transition-colors text-lg" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }} onMouseEnter={(e) => { e.currentTarget.style.color = '#E3AE67'; e.currentTarget.style.fontWeight = '700'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'white'; e.currentTarget.style.fontWeight = '500'; }}>
+                    Custom
                   </Link>
                   <span className="text-white text-opacity-30">|</span>
                   <Link href="/contact" className="px-3 py-2 text-white transition-colors text-lg" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }} onMouseEnter={(e) => { e.currentTarget.style.color = '#E3AE67'; e.currentTarget.style.fontWeight = '700'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'white'; e.currentTarget.style.fontWeight = '500'; }}>
@@ -226,44 +368,87 @@ const Header = () => {
             >
               <nav className="flex flex-col items-center space-y-4">
                 <Link 
-                  href="/" 
+                  href="/about" 
                   className="block text-lg text-white hover:text-yellow-400 transition-colors py-3 px-6 border-b border-yellow-400 border-opacity-30 w-full text-center" 
                   style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }}
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Home
+                  About Us
                 </Link>
                 <Link 
-                  href="/rings" 
+                  href="/buy-sell" 
                   className="block text-lg text-white hover:text-yellow-400 transition-colors py-3 px-6 border-b border-yellow-400 border-opacity-30 w-full text-center" 
                   style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }}
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Rings
+                  Buy & Sell
+                </Link>
+                
+                {/* Mobile Shop with Dropdown */}
+                <div className="w-full">
+                  <button
+                    className="block text-lg text-white hover:text-yellow-400 transition-colors py-3 px-6 border-b border-yellow-400 border-opacity-30 w-full text-center flex items-center justify-center"
+                    style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }}
+                    onClick={() => setIsMobileShopDropdownOpen(!isMobileShopDropdownOpen)}
+                  >
+                    Shop
+                    <svg 
+                      className={`ml-2 w-4 h-4 transition-transform duration-200 ${isMobileShopDropdownOpen ? 'rotate-180' : ''}`}
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  
+                  {/* Mobile Dropdown */}
+                  <AnimatePresence>
+                    {isMobileShopDropdownOpen && (
+                      <motion.div
+                        className="bg-blue-900 bg-opacity-80 rounded-lg mt-2 border border-yellow-400 border-opacity-30"
+                        initial={{ opacity: 0, maxHeight: 0 }}
+                        animate={{ opacity: 1, maxHeight: 400 }}
+                        exit={{ opacity: 0, maxHeight: 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        style={{ overflow: 'hidden' }}
+                      >
+                        <div className="py-2">
+                          {shopCategories.map((category, index) => (
+                            <Link
+                              key={category.name}
+                              href={category.href}
+                              className="block text-sm text-white hover:text-yellow-400 transition-colors py-3 px-6 border-b border-yellow-400 border-opacity-20 last:border-b-0"
+                              style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }}
+                              onClick={() => {
+                                setIsMobileShopDropdownOpen(false);
+                                setIsMenuOpen(false);
+                              }}
+                            >
+                              {category.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+                
+                <Link 
+                  href="/repair" 
+                  className="block text-lg text-white hover:text-yellow-400 transition-colors py-3 px-6 border-b border-yellow-400 border-opacity-30 w-full text-center" 
+                  style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Repair
                 </Link>
                 <Link 
-                  href="/necklaces" 
+                  href="/custom" 
                   className="block text-lg text-white hover:text-yellow-400 transition-colors py-3 px-6 border-b border-yellow-400 border-opacity-30 w-full text-center" 
                   style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }}
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Necklaces
-                </Link>
-                <Link 
-                  href="/bracelets" 
-                  className="block text-lg text-white hover:text-yellow-400 transition-colors py-3 px-6 border-b border-yellow-400 border-opacity-30 w-full text-center" 
-                  style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Bracelets
-                </Link>
-                <Link 
-                  href="/earrings" 
-                  className="block text-lg text-white hover:text-yellow-400 transition-colors py-3 px-6 border-b border-yellow-400 border-opacity-30 w-full text-center" 
-                  style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 500 }}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Earrings
+                  Custom
                 </Link>
                 <Link 
                   href="/contact" 
@@ -281,7 +466,7 @@ const Header = () => {
 
       {/* Mobile Cart and User Icons - Fixed position, outside main container */}
       <div className={`md:hidden fixed left-4 flex items-center space-x-4 z-50 ${
-        isMenuOpen ? 'top-29' : 'bottom-4'
+        isMenuOpen ? 'top-29' : 'hidden'
       }`}>
         <Link href="/cart" className="relative p-2 text-white hover:text-yellow-400 transition-colors">
           <Image 
@@ -316,40 +501,42 @@ const Header = () => {
           ease: [0.25, 0.46, 0.45, 0.94]
         }}
       >
-        {/* Animated Hamburger/X Icon */}
-        <div className="relative w-8 h-8 flex flex-col justify-center items-center">
-          {/* Top Line */}
-          <motion.div
-            className="w-7 h-0.5 bg-current mb-1.5"
-            animate={{
-              rotate: isMenuOpen ? 45 : 0,
-              y: isMenuOpen ? 8 : 0,
-              opacity: isMenuOpen ? 1 : 1
-            }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-          />
-          
-          {/* Middle Line */}
-          <motion.div
-            className="w-7 h-0.5 bg-current mb-1.5"
-            animate={{
-              opacity: isMenuOpen ? 0 : 1,
-              scale: isMenuOpen ? 0 : 1
-            }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}
-          />
-          
-          {/* Bottom Line */}
-          <motion.div
-            className="w-7 h-0.5 bg-current"
-            animate={{
-              rotate: isMenuOpen ? -45 : 0,
-              y: isMenuOpen ? -8 : 0,
-              opacity: isMenuOpen ? 1 : 1
-            }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-          />
-        </div>
+        {/* Custom SVG Hamburger/X Icons */}
+        <AnimatePresence mode="wait">
+          {isMenuOpen ? (
+            <motion.div
+              key="x-icon"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.2, ease: "easeInOut" }}
+            >
+              <Image
+                src="/Img/X2.svg"
+                alt="Close menu"
+                width={33}
+                height={32}
+                className="w-8 h-8"
+              />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="hamburger-icon"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.2, ease: "easeInOut" }}
+            >
+              <Image
+                src="/Img/Hamburger.svg"
+                alt="Open menu"
+                width={44}
+                height={27}
+                className="w-8 h-6"
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.button>
 
 

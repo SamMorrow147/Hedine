@@ -150,13 +150,13 @@ export default function Home() {
             <div className="w-full lg:flex-1 text-center lg:text-left order-1 lg:order-2">
               <h1 className="mb-6 lg:mb-8" style={{ color: '#0a125a' }}>
                 <div 
-                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl leading-tight lg:whitespace-nowrap"
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl leading-tight lg:whitespace-nowrap"
                   style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 700, fontStyle: 'normal' }}
                 >
                   Serving Alexandria MN,
                 </div>
                 <div 
-                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl leading-tight"
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl leading-tight"
                   style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 800, fontStyle: 'italic' }}
                 >
                   for Over 100 Years
@@ -285,7 +285,7 @@ export default function Home() {
             {/* Mobile Title */}
             <div className="block lg:hidden mb-6">
               <h2 ref={mobileTitleRef} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ color: '#0a125a', lineHeight: '1.2' }}>
-                <div style={{ fontFamily: 'Beaufort Pro', fontWeight: 700, fontStyle: 'normal' }}>
+                <div style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 700, fontStyle: 'normal' }}>
                   Special Gifts For September
                 </div>
               </h2>
@@ -293,8 +293,8 @@ export default function Home() {
             
             {/* Desktop Title */}
             <div className="hidden lg:block mb-0">
-              <h2 ref={desktopTitleRef} className="text-5xl xl:text-7xl 2xl:text-8xl" style={{ color: '#0a125a', lineHeight: '1.2' }}>
-                <div style={{ fontFamily: 'Beaufort Pro', fontWeight: 700, fontStyle: 'normal' }}>
+              <h2 ref={desktopTitleRef} className="text-4xl xl:text-5xl 2xl:text-6xl" style={{ color: '#0a125a', lineHeight: '1.2' }}>
+                <div style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 700, fontStyle: 'normal' }}>
                   Special Gifts For September
                 </div>
               </h2>
@@ -402,7 +402,7 @@ export default function Home() {
             <div className="flex flex-col lg:flex-row items-center justify-between h-full px-16 lg:px-24 xl:px-32 py-12 lg:py-16">
               {/* Left Content */}
               <div className="lg:w-1/2 text-center lg:text-left mb-8 lg:mb-0">
-                <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold mb-6" style={{ fontFamily: 'var(--font-beaufort)', color: '#0a125a' }}>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold mb-6" style={{ fontFamily: 'var(--font-beaufort)', color: '#0a125a' }}>
                   Details That Endure
                 </h2>
                 <p className="text-lg lg:text-xl text-black mb-8 leading-relaxed font-mr-eaves">
@@ -602,7 +602,7 @@ export default function Home() {
                 {/* Center content */}
                 <div className="text-center px-0 sm:px-2">
                   <h2
-                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold mb-6 px-1 sm:px-0"
+                    className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl font-bold mb-6 px-1 sm:px-0"
                     style={{ fontFamily: 'var(--font-beaufort)', color: '#0a125a' }}
                   >
                     The Gift That Speaks Volumes
@@ -652,16 +652,16 @@ export default function Home() {
             
             {/* Right side - Content */}
             <div className="w-full lg:flex-1 text-center lg:text-left order-2 lg:order-2">
-              <h2 ref={earringsTitleRef} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl mb-2" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 700, color: '#0a125a' }}>
+              <h2 ref={earringsTitleRef} className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl mb-2" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 700, color: '#0a125a' }}>
                 Framed in Sparkle
               </h2>
               <div className="flex justify-center lg:justify-start mb-8">
                 <img 
                   src="/Img/Underline-Ornament.svg" 
                   alt="Ornamental Underline" 
-                  className="h-4 sm:h-6"
+                  className="h-8 sm:h-10"
                   style={{ 
-                    width: earringsUnderlineWidth > 0 ? `${earringsUnderlineWidth}px` : 'auto',
+                    width: earringsUnderlineWidth > 0 ? `${earringsUnderlineWidth * 1.3}px` : 'auto',
                     maxWidth: '100%'
                   }}
                 />
@@ -702,16 +702,16 @@ export default function Home() {
             
             {/* Left side - Content */}
             <div className="w-full lg:flex-1 text-center lg:text-left order-2 lg:order-1">
-              <h2 ref={braceletsTitleRef} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl mb-2" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 700, color: '#0a125a' }}>
+              <h2 ref={braceletsTitleRef} className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl mb-2" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 700, color: '#0a125a' }}>
                 Charmed by Detail
               </h2>
               <div className="flex justify-center lg:justify-start mb-8">
                 <img 
                   src="/Img/Underline-Ornament.svg" 
                   alt="Ornamental Underline" 
-                  className="h-4 sm:h-6"
+                  className="h-8 sm:h-10"
                   style={{ 
-                    width: braceletsUnderlineWidth > 0 ? `${braceletsUnderlineWidth}px` : 'auto',
+                    width: braceletsUnderlineWidth > 0 ? `${braceletsUnderlineWidth * 1.3}px` : 'auto',
                     maxWidth: '100%'
                   }}
                 />
@@ -783,7 +783,7 @@ export default function Home() {
             
             {/* Right side - Content */}
             <div className="w-full lg:flex-1 text-center lg:text-left order-1 lg:order-2">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl mb-2" style={{ fontFamily: 'Beaufort Pro', fontWeight: 700, color: '#0a125a' }}>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl mb-2" style={{ fontFamily: 'Beaufort Pro', fontWeight: 700, color: '#0a125a' }}>
                 Made Custom
               </h2>
               <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-6" style={{ fontFamily: 'Beaufort Pro', fontWeight: 700, fontStyle: 'italic', color: '#0a125a' }}>
@@ -816,14 +816,14 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
             {/* Left side - Content */}
             <div className="w-full lg:flex-1 text-center lg:text-left order-1">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl mb-2" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 700, color: '#0a125a' }}>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl mb-2" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 700, color: '#0a125a' }}>
                 We Do Repairs
               </h2>
               <div className="flex justify-center lg:justify-start mb-8">
                 <img 
                   src="/Img/Underline-Ornament.svg" 
                   alt="Ornamental Underline" 
-                  className="h-4 sm:h-6"
+                  className="h-2 sm:h-3"
                 />
               </div>
               <p className="text-lg sm:text-xl text-black mb-8 lg:mb-12 max-w-2xl mx-auto lg:mx-0 font-mr-eaves">

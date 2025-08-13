@@ -19,8 +19,8 @@ const Footer = () => {
         
         {/* Right side thin white stroke */}
         <div className="absolute top-0 right-12 w-0.5 h-full bg-white opacity-80 z-20"></div>
-        <div className="container mx-auto px-8 py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="container mx-auto px-33 py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-8">
             {/* Left Section - A Tradition of Detail */}
             <div className="space-y-6">
               <h2 className="text-4xl" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 700, color: 'white' }}>A Tradition of Detail</h2>
@@ -39,12 +39,12 @@ const Footer = () => {
                   <div className="ornamental-button__ornament-top-bottom"></div>
                   <div className="ornamental-button__ornament-left-right"></div>
                 </div>
-                <span className="ornamental-button__label">Explore Our Collections</span>
+                <span className="ornamental-button__label--white">Explore Our Collections</span>
               </button>
             </div>
 
             {/* Center Section - Hedine Links */}
-            <div className="lg:text-left min-w-[40px]">
+            <div className="lg:text-left">
               <h3 className="text-3xl mb-6" style={{ fontFamily: 'var(--font-beaufort)', fontWeight: 700, color: 'white' }}>Hedine</h3>
               <ul className="space-y-3 text-lg font-mr-eaves">
                 <li>
@@ -105,10 +105,7 @@ const Footer = () => {
                   </Link>
                 </li>
               </ul>
-              {/* Decorative underline */}
-              <div className="mt-8 flex justify-start">
-                <div className="w-32 h-1 bg-gradient-to-r from-transparent via-white to-transparent opacity-50"></div>
-              </div>
+
             </div>
           </div>
         </div>
@@ -138,7 +135,7 @@ const Footer = () => {
             />
           </div>
           
-          <div className="container mx-auto px-8 py-6 flex flex-col md:flex-row justify-between items-center">
+          <div className="container mx-auto px-33 py-6 flex flex-col md:flex-row justify-between items-center">
             {/* Left - Powered by */}
             <div className="flex items-center space-x-3 mb-4 md:mb-0">
               <span className="text-lg">Powered By:</span>
